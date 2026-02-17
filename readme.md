@@ -16,3 +16,4 @@ just rename it to the corresponding init file name.
 For now it only supports these formats: mp3, ttf. 
   
 Quick video showcase:
+https://github.com/user-attachments/assets/bb85afdc-18fc-434f-83a2-49ed4194dc47
