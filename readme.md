@@ -16,4 +16,3 @@ just rename it to the corresponding init file name.
 For now it only supports these formats: mp3, ttf. 
   
 Quick video showcase:
-[video](snapshots/quick-vid-showcase.mp4)
