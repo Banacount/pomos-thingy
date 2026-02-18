@@ -1,4 +1,4 @@
-misc = {}
+local misc = {}
 
 misc.split_str = function (str, sep)
     local fields = {}

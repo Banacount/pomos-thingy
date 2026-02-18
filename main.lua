@@ -9,6 +9,7 @@ local default_font
 local font_size = default_font_size
 local scr_center= {x = (love.graphics.getWidth() / 2),  y = (love.graphics.getHeight() / 2)}
 local statusText = "Click 1 to work and 2 to break"
+local initialStart = true
 local cmd_mode = false
 local cmd_text = ""
 local cursor_blink_time = {on = false, onTime = 0, delay = 0.45}
@@ -21,7 +22,7 @@ local didAlarm = false
 local time_display = {min = 0, sec = 0}
 local time_elapsed = 0
 SecElapsed = 0
-SecTarget = 10 --1500
+SecTarget = 1500 --1500
 local secCurrent
 local time_text = "00:00"
 local isPause = true
@@ -162,6 +163,10 @@ function love.keypressed(key)
 
     if key == "space" then
         isPause = not isPause
+        if initialStart then
+            statusText = "Working"
+            initialStart = false
+        end
     end
 
     end
