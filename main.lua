@@ -47,7 +47,8 @@ local defaultFilesDir = {
 function love.load()
     love.window.maximize()
     local baseDir = love.filesystem.getSourceBaseDirectory()
-    love.filesystem.mount(baseDir, "mods")
+    local modMount = love.filesystem.mount(baseDir, "mods")
+    if modMount then print("Mods dir mounted.") end
 
     for i, value in pairs(filesDir) do
         if love.filesystem.getInfo(modsDir .. value) then
