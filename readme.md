@@ -19,3 +19,9 @@ Quick video showcase:
 
 
 https://github.com/user-attachments/assets/bb85afdc-18fc-434f-83a2-49ed4194dc47
+
+<img width="1314" height="736" alt="snapshot1-pomos" src="https://github.com/user-attachments/assets/c5b2cd75-8f19-4c39-b839-ac394051ee55" />
+
+<img width="1318" height="739" alt="snapshot2-pomos" src="https://github.com/user-attachments/assets/71d985b2-6fb2-406a-b861-c32779e52121" />
+
+<img width="1360" height="768" alt="snapshot3-pomos" src="https://github.com/user-attachments/assets/5283e92d-2e9d-4637-b722-97ef284f9be7" />
