@@ -9,8 +9,7 @@ local default_font
 local font_size = default_font_size
 local scr_center= {x = (love.graphics.getWidth() / 2),  y = (love.graphics.getHeight() / 2)}
 local statusText = "Click 1 to work and 2 to break"
-local initialStart = true
-local cmd_mode = false
+local initialStart = true local cmd_mode = false
 local cmd_text = ""
 local cursor_blink_time = {on = false, onTime = 0, delay = 0.45}
 
@@ -27,6 +26,15 @@ local secCurrent
 local time_text = "00:00"
 local isPause = true
 
+-- Directory variables
+local modsDir = "mods/"
+local filesDir = {
+    main_font = "default_font.ttf", alarm_sfx = "sfx/alarm.mp3"
+}
+local defaultFilesDir = {
+    main_font = "default_font.ttf", alarm_sfx = "sfx/alarm.mp3"
+}
+
 --[[
     
     So the SecTarget is the target time for the clock,
@@ -36,11 +44,22 @@ local isPause = true
         CurrentTime = SecTarget - SecElapsed
 
 --]]
-
 function love.load()
     love.window.maximize()
-    default_font = love.graphics.newFont("default_font.ttf", font_size)
-    alarmSfx = love.audio.newSource("sfx/alarm.mp3", "static")
+    local baseDir = love.filesystem.getSourceBaseDirectory()
+    love.filesystem.mount(baseDir, "mods")
+
+    for i, value in pairs(filesDir) do
+        if love.filesystem.getInfo(modsDir .. value) then
+            -- print("Mod for '" .. value .. "' exists.")
+            filesDir[i] = modsDir .. value
+        else
+            print("Mod for '" .. value .. "' does not exist.")
+        end
+    end
+
+    default_font = love.graphics.newFont(filesDir.main_font, font_size)
+    alarmSfx = love.audio.newSource(filesDir.alarm_sfx, "static")
     love.graphics.setBackgroundColor(35/255, 38/255, 52/255)
 end
 
@@ -69,7 +88,12 @@ function love.update(dt)
     if not didAlarm and secCurrent <= 0 then
         love.audio.play(alarmSfx)
         statusText = "Timer is done"
-        os.execute('notify-send -u normal "Pomodoro timer is done."')
+
+        local what_os = love.system.getOS()
+        if what_os == "Linux" then
+            os.execute('notify-send -u normal "Pomodoro timer is done."')
+        end
+
         isPause = true
         didAlarm = true
     end
@@ -203,9 +227,21 @@ end
 function love.wheelmoved(x, y)
     if y > 0 and font_size < 328 then
         font_size = font_size + 5
-        default_font = love.graphics.newFont("default_font.ttf", font_size)
     elseif y < 0 and font_size > min_font_size then
         font_size = font_size - 5
-        default_font = love.graphics.newFont("default_font.ttf", font_size)
+    end
+
+    -- Reload font
+    local win, result = pcall(love.graphics.newFont, filesDir.main_font, font_size)
+    if win then
+        default_font = result
+    else
+        local def_win, def_result = pcall(love.graphics.newFont, defaultFilesDir.main_font, font_size)
+
+        if def_win then
+            default_font = def_result
+        else
+            love.event.quit()
+        end
     end
 end

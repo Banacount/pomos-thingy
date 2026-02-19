@@ -6,4 +6,7 @@ function love.conf(t)
     t.window.width = 1280
     t.window.height = 720
     t.window.resizable = true
+
+    -- For mod control
+    t.identity = "pomos-app"
 end
