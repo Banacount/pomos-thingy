@@ -50,6 +50,7 @@ function love.load()
     local modMount = love.filesystem.mount(baseDir, "mods")
     if modMount then print("Mods dir mounted.") end
 
+    print("-- Only worry about this when you're modding --")
     for i, value in pairs(filesDir) do
         if love.filesystem.getInfo(modsDir .. value) then
             -- print("Mod for '" .. value .. "' exists.")
